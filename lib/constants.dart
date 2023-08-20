@@ -1,0 +1,1 @@
+enum SignInMethod { googleId, appleId }
