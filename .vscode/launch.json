@@ -5,21 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Attendance_System",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "Attendance_System (profile mode)",
+            "name": "FaceRecognitionAuth",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "debug"
+
         },
         {
-            "name": "Attendance_System (release mode)",
+            "name": "moto one",
+            "deviceId": "ZE222GZGD7",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "debug"
+
+        },
+        {
+            "name": "emulator",
+            "deviceId": "emulator-5554",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug"
         }
     ]
 }

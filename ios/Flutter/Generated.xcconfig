@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/can/fvm/versions/3.10.3
-FLUTTER_APPLICATION_PATH=/Users/can/dong/atten
+FLUTTER_APPLICATION_PATH=/Users/can/dong/FaceRecognitionAuth
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_TARGET=lib/main.dart
 FLUTTER_BUILD_DIR=build
