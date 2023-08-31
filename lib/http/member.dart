@@ -115,10 +115,9 @@ class MemberHttp {
     }
   }
 
-  Future<bool> checkin(String email, List data) async {
+  Future<bool> checkin(List data) async {
     final Uri url = Uri.parse(Constants().getBaseURL() + '/members/predict');
     final Map<String, dynamic> req = {
-      'email': email,
       'data': jsonEncode(data),
     };
 
@@ -127,7 +126,7 @@ class MemberHttp {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(req), // Encode your data as JSON
+      body: jsonEncode(data), // Encode your data as JSON
     );
 
     if (response.statusCode == 200) {

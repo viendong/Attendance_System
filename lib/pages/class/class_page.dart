@@ -10,8 +10,8 @@ import 'package:face_net_authentication/widgets/member_card.dart';
 import 'package:face_net_authentication/widgets/report_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-// ignore: must_be_immutable
 class ClassPage extends BaseStatefulWidget {
   ClassPage({
     super.key,
@@ -191,10 +191,10 @@ class _ClassPageState extends State<ClassPage> {
         .toList()
         .obs;
     return SafeArea(
-      child: _list2.length == 0
+      child: _list2 == null || _list2!.length == 0
           ? Container()
           : ListView(
-              children: _list2,
+              children: _list2!,
             ),
     );
   }
@@ -281,6 +281,10 @@ class _ClassPageState extends State<ClassPage> {
 
   Future<List<Widget>> getData() async {
     List<Member>? members = await _controller.getStudents(widget.data!.id);
+    if (members == null) {
+      return RxList<Widget>();
+    }
+
     return members
         .map((e) {
           return MemberCard(
@@ -336,7 +340,6 @@ class _ClassPageState extends State<ClassPage> {
       return false;
     }
     final result = await _controller.memberHttp.checkin(
-      _controller.userState.currentMember!.email,
       modelData,
     );
     if (result) {
@@ -347,7 +350,6 @@ class _ClassPageState extends State<ClassPage> {
   }
 }
 
-// ignore: must_be_immutable
 class MyFloatingActionButtonMenu extends StatefulWidget {
   MyFloatingActionButtonMenu({
     super.key,
@@ -389,7 +391,7 @@ class _MyFloatingActionButtonMenuState
   void _showMenu(BuildContext context) {
     final RenderBox button = context.findRenderObject() as RenderBox;
     final RenderBox overlay =
-        Overlay.of(context).context.findRenderObject() as RenderBox;
+        Overlay.of(context)!.context.findRenderObject() as RenderBox;
     final RelativeRect position = RelativeRect.fromRect(
       Rect.fromPoints(
         button.localToGlobal(Offset.zero, ancestor: overlay),
