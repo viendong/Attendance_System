@@ -3,7 +3,6 @@ import 'package:face_net_authentication/http/class.dart';
 import 'package:face_net_authentication/locator.dart';
 import 'package:face_net_authentication/models/class.dart';
 import 'package:face_net_authentication/pages/student/student_binding.dart';
-import 'package:face_net_authentication/router/navigator.dart';
 import 'package:face_net_authentication/state/user.dart';
 
 class StudentController extends BaseController {
@@ -11,7 +10,6 @@ class StudentController extends BaseController {
   static StudentController _instance = StudentController();
   static StudentController get instance => _instance;
 
-  ScreenRouter _screenRouter = locator<ScreenRouter>();
   ClassHttp _studentHttp = ClassHttp();
   UserState _userState = locator<UserState>();
 
