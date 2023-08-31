@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:face_net_authentication/client/firebase_core.dart';
 import 'package:face_net_authentication/constants/constants.dart';
 import 'package:face_net_authentication/locator.dart';
