@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -28,10 +28,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.4
   tflite_flutter: ^0.10.1
-  camera: ^0.9.4+19
+  camera: ^0.10.5+2
   path_provider: ^2.0.9
   path: ^1.8.0
-  google_ml_kit: ^0.13.0
+  google_ml_kit: ^0.16.2
   image: ^3.0.2
   font_awesome_flutter: ^9.0.0
   url_launcher: ^6.0.3
@@ -43,6 +43,11 @@ dependencies:
   firebase_auth: ^4.7.3
   logger: ^2.0.1
   google_sign_in: ^6.1.4
+  image_picker: ^1.0.2
+  flutter_signin_button:
+  jwt_decoder: ^2.0.1
+  http: ^0.13.3
+  flutter_config: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +67,9 @@ flutter:
   assets:
     - assets/mobilefacenet.tflite
     - assets/logo.png
+    - assets/home.png
+    - assets/class.png
+    - assets/report.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
