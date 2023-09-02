@@ -17,7 +17,10 @@ class ReportCard extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if (await canLaunchUrl(Uri.parse(rp.link))) {
-          await launchUrl(Uri.parse(rp.link));
+          await launchUrl(
+            Uri.parse(rp.link),
+            mode: LaunchMode.inAppWebView,
+            );
         } else {
           throw 'Could not launch $rp.link';
         }
@@ -45,7 +48,7 @@ class ReportCard extends StatelessWidget {
               width: 30,
               height: 30,
             ),
-            Text(rp.check_in_date.toString()),
+            Text(rp.check_in_date.toLocal().toString()),
           ],
         ),
       ),

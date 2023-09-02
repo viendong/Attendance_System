@@ -8,7 +8,8 @@ class Constants {
   Config config = locator<Config>();
 
   String getBaseURL() {
-    return "${config.get("API_SCHEME")}://${config.get("API_HOST")}${!config.isEmpty("API_PORT") ? ":${config.get("API_PORT")}" : ""}";
+    return 'https://backend-1-w0768385.deta.app';
+    // return "${config.get("API_SCHEME")}://${config.get("API_HOST")}${!config.isEmpty("API_PORT") ? ":${config.get("API_PORT")}" : ""}";
   }
 }
 

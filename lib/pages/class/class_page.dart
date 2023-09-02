@@ -340,6 +340,8 @@ class _ClassPageState extends State<ClassPage> {
       return false;
     }
     final result = await _controller.memberHttp.checkin(
+      widget.data!.id,
+      _controller.userState.currentMember!.email,
       modelData,
     );
     if (result) {

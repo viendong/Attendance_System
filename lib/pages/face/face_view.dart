@@ -68,6 +68,9 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
       initialCameraLensDirection: _cameraLensDirection,
       setCurrentPrediction: mlService.setCurrentPrediction,
       capture: capture,
+      onClose: () {
+        Navigator.pop(context,[]);
+      },
     );
   }
 

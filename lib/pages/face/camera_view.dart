@@ -14,6 +14,7 @@ class CameraView extends StatefulWidget {
     this.initialCameraLensDirection = CameraLensDirection.front,
     this.setCurrentPrediction,
     this.capture,
+    this.onClose,
   }) : super(key: key);
 
   final CustomPaint? customPaint;
@@ -22,6 +23,7 @@ class CameraView extends StatefulWidget {
   late final img.Image test1;
   final Function(CameraImage cameraImage, Face? face)? setCurrentPrediction;
   final Function? capture;
+  final Function? onClose;
 
   @override
   State<CameraView> createState() => _CameraViewState();
@@ -82,7 +84,7 @@ class _CameraViewState extends State<CameraView> {
             ),
           ),
           _capture(),
-          _backButton(),
+        //  _backButton(),
         ],
       ),
     );
@@ -128,12 +130,7 @@ class _CameraViewState extends State<CameraView> {
           width: 50.0,
           child: FloatingActionButton(
             heroTag: Object(),
-            onPressed: () async {
-              await showDialog(
-                context: context,
-                builder: (_) => CustomDialog(),
-              );
-            },
+            onPressed: widget.onClose!(),
             backgroundColor: Colors.black54,
             child: Icon(
               Icons.arrow_back_ios_outlined,
