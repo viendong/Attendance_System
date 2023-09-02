@@ -128,7 +128,7 @@ class MemberHttp {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(req), // Encode your data as JSON
+      body: jsonEncode(data), // Encode your data as JSON
     );
 
     if (response.statusCode == 200) {
