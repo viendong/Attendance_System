@@ -66,7 +66,7 @@ class _ClassPageState extends State<ClassPage> {
     String status = '';
     if (widget.data!.attendances!.length > 0) {
       if (widget.data!.attendances!.last.status == 'open') {
-        status = ' - Checking';
+        status = ' - check-in';
       } else {
         status = '';
       }
@@ -475,7 +475,7 @@ class _MyFloatingActionButtonMenuState
             PopupMenuItem(
               child: ListTile(
                 leading: Icon(Icons.check_circle),
-                title: Text('Checking'),
+                title: Text('check-in'),
                 onTap: () async {
                   // Handle the Help option
                   Navigator.pop(context);
