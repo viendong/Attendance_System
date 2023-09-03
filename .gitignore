@@ -45,3 +45,7 @@ app.*.map.json
 
 # Firebase configs
 google-services.json
+
+.flutter-plugins-dependencies
+.flutter-plugins
+```
