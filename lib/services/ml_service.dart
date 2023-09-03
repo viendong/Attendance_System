@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:face_net_authentication/services/image_converter.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:image/image.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:tflite_flutter/src/bindings/tensorflow_lite_bindings_generated.dart';
 import 'package:image/image.dart' as imglib;
@@ -75,7 +76,7 @@ class MLService {
 
   List _preProcess(CameraImage image, Face faceDetected) {
     imglib.Image croppedImage = _cropFace(image, faceDetected);
-    imglib.Image img = imglib.copyResizeCropSquare(croppedImage, 112);
+    imglib.Image img = imglib.copyResizeCropSquare(croppedImage, size: 112);
 
     Float32List imageAsList = imageToByteListFloat32(img);
     return imageAsList;
@@ -88,12 +89,17 @@ class MLService {
     double w = faceDetected.boundingBox.width + 10.0;
     double h = faceDetected.boundingBox.height + 10.0;
     return imglib.copyCrop(
-        convertedImage, x.round(), y.round(), w.round(), h.round());
+        convertedImage,
+        x : x.round(), 
+        y: y.round(),
+         width: w.round(), 
+         height : h.round(),
+        );
   }
 
   imglib.Image _convertCameraImage(CameraImage image) {
     var img = convertToImage(image);
-    var img1 = imglib.copyRotate(img, -90);
+    var img1 = imglib.copyRotate(img,angle: -90);
     return img1;
   }
 
@@ -105,9 +111,9 @@ class MLService {
     for (var i = 0; i < 112; i++) {
       for (var j = 0; j < 112; j++) {
         var pixel = image.getPixel(j, i);
-        buffer[pixelIndex++] = (imglib.getRed(pixel) - 128) / 128;
-        buffer[pixelIndex++] = (imglib.getGreen(pixel) - 128) / 128;
-        buffer[pixelIndex++] = (imglib.getBlue(pixel) - 128) / 128;
+        buffer[pixelIndex++] = (pixel.getChannel(Channel.red) - 128) / 128;
+        buffer[pixelIndex++] = (pixel.getChannel(Channel.green) - 128) / 128;
+        buffer[pixelIndex++] = (pixel.getChannel(Channel.blue) - 128) / 128;
       }
     }
     return convertedBytes.buffer.asFloat32List();

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:face_net_authentication/pages/face/camera_view.dart';
+import 'package:face_net_authentication/pages/face/painters/new_face_painter.dart';
 import 'package:face_net_authentication/services/ml_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
@@ -69,7 +72,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
       setCurrentPrediction: mlService.setCurrentPrediction,
       capture: capture,
       onClose: () {
-        Navigator.pop(context,[]);
+        Navigator.pop(context, []);
       },
     );
   }
@@ -100,7 +103,9 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
           content: Text('Face Not Captured!!! Please Try Again'),
           actions: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               child: Text('OK'),
             ),
           ],
@@ -116,6 +121,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
 
     final faces = await _faceDetector.processImage(inputImage);
     this.faces = faces;
+
     final painter = FaceDetectorPainter(
       faces,
       inputImage.metadata!.size,

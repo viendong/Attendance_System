@@ -84,7 +84,7 @@ class _CameraViewState extends State<CameraView> {
             ),
           ),
           _capture(),
-        //  _backButton(),
+          //  _backButton(),
         ],
       ),
     );
@@ -139,6 +139,7 @@ class _CameraViewState extends State<CameraView> {
           ),
         ),
       );
+
   Future<img.Image?> takePic() async {
     try {
       XFile? picture = await _controller?.takePicture();
@@ -147,7 +148,7 @@ class _CameraViewState extends State<CameraView> {
 
       // Flip the image horizontally.
       final img.Image flippedImage =
-          img.flip(capturedImage, img.Flip.horizontal);
+          img.flip(capturedImage, direction: img.FlipDirection.horizontal);
 
       return flippedImage;
     } on CameraException catch (e) {

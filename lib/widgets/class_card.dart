@@ -18,7 +18,7 @@ class ClassCard extends StatelessWidget {
     String status = '';
     if (data!.attendances!.length > 0) {
       if (data!.attendances!.last.status == 'open') {
-        status = 'Checking';
+        status = 'check-in';
       } else {
         status = '';
       }
