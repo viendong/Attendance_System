@@ -72,7 +72,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
       setCurrentPrediction: mlService.setCurrentPrediction,
       capture: capture,
       onClose: () {
-        Navigator.pop(context,[]);
+        Navigator.pop(context, []);
       },
     );
   }
@@ -121,24 +121,14 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
 
     final faces = await _faceDetector.processImage(inputImage);
     this.faces = faces;
-   
-    if (Platform.isAndroid) {
-      Face? data = this.faces.length == 0 ? null : this.faces[0];
-      final painter = AndFacePainter(
-        imageSize: inputImage.metadata!.size, 
-        face: data,
-        );
-      _customPaint = CustomPaint(painter: painter);
-    } else {
-      final painter = FaceDetectorPainter(
-            faces,
-            inputImage.metadata!.size,
-            inputImage.metadata!.rotation,
-            _cameraLensDirection,
-          );
+
+    final painter = FaceDetectorPainter(
+      faces,
+      inputImage.metadata!.size,
+      inputImage.metadata!.rotation,
+      _cameraLensDirection,
+    );
     _customPaint = CustomPaint(painter: painter);
-    }
-    
 
     _isBusy = false;
     if (mounted) {
