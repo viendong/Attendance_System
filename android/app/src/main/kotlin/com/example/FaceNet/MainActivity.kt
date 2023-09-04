@@ -1,4 +1,4 @@
-package com.example.kvdong
+package com.example.canndc
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -49,3 +49,6 @@ google-services.json
 .flutter-plugins-dependencies
 .flutter-plugins
 ```
+.flutter-plugins
+.flutter-plugins-dependencies
+android/local.properties

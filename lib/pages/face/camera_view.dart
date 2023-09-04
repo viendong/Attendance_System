@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image/image.dart' as img; // Import the image package.
 
-class CameraView extends StatefulWidget {
-  CameraView({
+class IosCameraView extends StatefulWidget {
+  IosCameraView({
     Key? key,
     required this.customPaint,
     required this.onImage,
@@ -20,16 +20,15 @@ class CameraView extends StatefulWidget {
   final CustomPaint? customPaint;
   final Function(InputImage inputImage) onImage;
   final CameraLensDirection initialCameraLensDirection;
-  late final img.Image test1;
   final Function(CameraImage cameraImage, Face? face)? setCurrentPrediction;
   final Function? capture;
   final Function? onClose;
 
   @override
-  State<CameraView> createState() => _CameraViewState();
+  State<IosCameraView> createState() => _IosCameraViewState();
 }
 
-class _CameraViewState extends State<CameraView> {
+class _IosCameraViewState extends State<IosCameraView> {
   static List<CameraDescription> _cameras = [];
   CameraController? _controller;
   int _cameraIndex = -1;

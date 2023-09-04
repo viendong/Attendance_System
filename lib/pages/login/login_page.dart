@@ -93,9 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                       if (_controller
                           .userState.currentMember!.modelData!.isEmpty) {
                         final modelData =
-                            await _controller.screenRouter.goToSubview(
-                          FaceDetectorView(),
-                        );
+                            await _controller.screenRouter.goToFaceDetector();
                         _controller.userState.currentMember!.modelData =
                             modelData;
                         isChange = true;

@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:face_net_authentication/pages/face/camera_view.dart';
-import 'package:face_net_authentication/pages/face/painters/new_face_painter.dart';
 import 'package:face_net_authentication/services/ml_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
@@ -65,9 +62,9 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
         child: CircularProgressIndicator(),
       );
     }
-    return CameraView(
+    return IosCameraView(
       customPaint: _customPaint,
-      onImage: _processImage,
+      onImage: _iosProcessImage,
       initialCameraLensDirection: _cameraLensDirection,
       setCurrentPrediction: mlService.setCurrentPrediction,
       capture: capture,
@@ -114,7 +111,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
     }
   }
 
-  Future<Face?> _processImage(InputImage inputImage) async {
+  Future<Face?> _iosProcessImage(InputImage inputImage) async {
     if (!_canProcess) return null;
     if (_isBusy) return null;
     _isBusy = true;
