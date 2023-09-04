@@ -333,9 +333,7 @@ class _ClassPageState extends State<ClassPage> {
   }
 
   Future<bool> checkin() async {
-    final List modelData = await _controller.screenRouter.goToSubview(
-      FaceDetectorView(),
-    );
+    final List modelData = await _controller.screenRouter.goToFaceDetector();
     if (modelData.length == 0) {
       return false;
     }

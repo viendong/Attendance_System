@@ -21,6 +21,9 @@ class FaceDetectorPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (faces.isEmpty) {
+      return;
+    }
     final Paint paint1 = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0
@@ -29,6 +32,20 @@ class FaceDetectorPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0
       ..color = Colors.green;
+
+    Paint facePaint;
+    if (this.faces[0].headEulerAngleY! > 10 ||
+        this.faces[0].headEulerAngleY! < -10) {
+      facePaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3.0
+        ..color = Colors.red;
+    } else {
+      facePaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3.0
+        ..color = Colors.green;
+    }
 
     for (final Face face in faces) {
       final left = translateX(
@@ -62,7 +79,7 @@ class FaceDetectorPainter extends CustomPainter {
 
       canvas.drawRect(
         Rect.fromLTRB(left, top, right, bottom),
-        paint1,
+        facePaint,
       );
 
       void paintContour(FaceContourType type) {
