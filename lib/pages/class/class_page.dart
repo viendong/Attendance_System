@@ -4,27 +4,22 @@ import 'package:face_net_authentication/models/class.dart';
 import 'package:face_net_authentication/models/member.dart';
 import 'package:face_net_authentication/models/report.dart';
 import 'package:face_net_authentication/pages/class/class_controller.dart';
-import 'package:face_net_authentication/pages/face/face_view.dart';
 import 'package:face_net_authentication/state/user.dart';
 import 'package:face_net_authentication/widgets/member_card.dart';
 import 'package:face_net_authentication/widgets/report_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ClassPage extends BaseStatefulWidget {
   ClassPage({
     super.key,
-    this.data,
+    
   });
 
-  Class? data;
+  
 
   static const String NAME = "/class";
 
-  set setData(Class? data) {
-    this.data = data;
-  }
 
   @override
   State<ClassPage> createState() => _ClassPageState();
@@ -34,6 +29,7 @@ class _ClassPageState extends State<ClassPage> {
   ClassController _controller = locator<ClassController>();
 
   List<Widget>? _list;
+  Class? item;
 
   Future<void> _loadData() async {
     _list = await getData();
@@ -48,24 +44,27 @@ class _ClassPageState extends State<ClassPage> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
 
   Future<void> load() async {
-    Class? newData = await _controller.getClass(widget.data!.id);
+    Class? newData = await _controller.getClass(item!.id);
     if (newData == null) {
       return;
     }
     setState(() {
-      widget.setData = newData;
+      item = newData;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Class;
+    setState(() {
+      item = args;  
+    });
     String status = '';
-    if (widget.data!.attendances!.length > 0) {
-      if (widget.data!.attendances!.last.status == 'open') {
+    if (item!.attendances!.length > 0) {
+      if (item!.attendances!.last.status == 'open') {
         status = ' - check-in';
       } else {
         status = '';
@@ -87,7 +86,7 @@ class _ClassPageState extends State<ClassPage> {
             },
             icon: Icon(Icons.arrow_back),
           ),
-          title: Text(widget.data!.name + status),
+          title: Text(item!.name + status),
         ),
         body: buildBody(),
         floatingActionButton: MyFloatingActionButtonMenu(
@@ -99,17 +98,17 @@ class _ClassPageState extends State<ClassPage> {
             if (data[0] == '' || data[1] == '') {
               return;
             }
-            await _controller.addStudent(data[1], data[0], widget.data!.id);
+            await _controller.addStudent(data[1], data[0], item!.id);
           },
           createAttendance: status == ''
               ? () async {
-                  await _controller.classHttp.createAttendance(widget.data!.id);
+                  await _controller.classHttp.createAttendance(item!.id);
                   await load();
                 }
               : null,
           closeAttendance: () async {
             await _controller.classHttp.closeAttendance(
-                widget.data!.id, widget.data!.attendances!.last.id);
+                item!.id, item!.attendances!.last.id);
             await load();
           },
           getReports: () async {
@@ -159,7 +158,7 @@ class _ClassPageState extends State<ClassPage> {
 
   Future<Widget> buildReport() async {
     List<Widget>? _list2;
-    List<Report>? reports = await _controller.getReports(widget.data!.id);
+    List<Report>? reports = await _controller.getReports(item!.id);
 
     _list2 = reports
         .map((e) {
@@ -178,7 +177,7 @@ class _ClassPageState extends State<ClassPage> {
 
   Future<Widget> buildMember() async {
     List<Widget>? _list2;
-    List<Member>? members = await _controller.getStudents(widget.data!.id);
+    List<Member>? members = await _controller.getStudents(item!.id);
 
     _list2 = members
         .map((e) {
@@ -186,6 +185,14 @@ class _ClassPageState extends State<ClassPage> {
             member: e,
             showDelete:
                 (_controller.userState.currentMember!.role == 'Teacher'),
+            onPressed: () {
+              showConfirmDialog(context).then((value) async {
+                if (value) {
+                  await _controller.deleteStudent(item!.id, e.id);
+                  await _loadData();
+                }
+              });
+            },
           );
         })
         .toList()
@@ -280,7 +287,7 @@ class _ClassPageState extends State<ClassPage> {
   }
 
   Future<List<Widget>> getData() async {
-    List<Member>? members = await _controller.getStudents(widget.data!.id);
+    List<Member>? members = await _controller.getStudents(item!.id);
     if (members == null) {
       return RxList<Widget>();
     }
@@ -338,7 +345,7 @@ class _ClassPageState extends State<ClassPage> {
       return false;
     }
     final result = await _controller.memberHttp.checkin(
-      widget.data!.id,
+      item!.id,
       _controller.userState.currentMember!.email,
       modelData,
     );

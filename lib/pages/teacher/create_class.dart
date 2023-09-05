@@ -98,7 +98,7 @@ class _CreateClassState extends State<CreateClass> {
                     if (newClass != null) {
                       _screenRouter.goToAndRemoveCurrent(
                         ClassPage.NAME,
-                        arguments: newClass,
+                        arguments: newClass!,
                       );
                     } else {
                       print('Error creating class');

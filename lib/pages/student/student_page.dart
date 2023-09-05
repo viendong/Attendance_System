@@ -128,12 +128,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
             data: e,
             message: "",
             onPress: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ClassPage(
-                    data: e,
-                  ),
-                ),
+              await Navigator.of(context).pushNamed(
+               ClassPage.NAME,
+               arguments: e,
               );
             },
           );

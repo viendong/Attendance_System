@@ -133,12 +133,9 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
           return ClassCard(
             data: e,
             onPress: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ClassPage(
-                    data: e,
-                  ),
-                ),
+              await Navigator.of(context).pushNamed(
+                ClassPage.NAME,
+                arguments: e,
               );
             },
           );
@@ -197,22 +194,22 @@ class _MyFloatingActionButtonMenuState
       items: <PopupMenuEntry>[
         PopupMenuItem(
           child: ListTile(
-            leading: Icon(Icons.refresh),
-            title: Text('Reload'),
-            onTap: () {
-              // Handle the Settings option
-              widget.refresh!();
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        PopupMenuItem(
-          child: ListTile(
             leading: Icon(Icons.add),
             title: Text('Add Class'),
             onTap: () async {
               // Handle the Help option
               await widget.addClass!();
+              Navigator.pop(context);
+            },
+          ),
+        ),
+         PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.refresh),
+            title: Text('Reload'),
+            onTap: () {
+              // Handle the Settings option
+              widget.refresh!();
               Navigator.pop(context);
             },
           ),

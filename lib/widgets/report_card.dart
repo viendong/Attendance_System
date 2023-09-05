@@ -2,6 +2,7 @@ import 'package:face_net_authentication/models/report.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class ReportCard extends StatelessWidget {
   final Report rp;
   final void Function()? onPressed;
@@ -16,14 +17,9 @@ class ReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        if (await canLaunchUrl(Uri.parse(rp.link))) {
-          await launchUrl(
-            Uri.parse(rp.link),
-            mode: LaunchMode.inAppWebView,
-            );
-        } else {
-          throw 'Could not launch $rp.link';
-        }
+        
+          await launchUrl(Uri.parse(rp.link), mode: LaunchMode.externalApplication);
+       
       },
       child: Container(
         margin: EdgeInsets.all(10),
